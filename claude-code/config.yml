@@ -1,0 +1,113 @@
+# Claude Code Commands Configuration for PRPROMPTS Generator
+# Version: 2.3.0 (Slash Commands)
+
+commands:
+  # PRD Creation Commands
+  create-prd:
+    prompt: "commands/prd/create.md"
+    description: "Interactive PRD creation wizard (10 questions)"
+
+  auto-gen-prd:
+    prompt: "commands/prd/auto-generate.md"
+    description: "Auto-generate PRD from description (zero interaction)"
+
+  prd-from-files:
+    prompt: "commands/prd/from-files.md"
+    description: "Generate PRD from existing markdown files (optional input)"
+
+  auto-prd-from-project:
+    prompt: "commands/prd/auto-from-project.md"
+    description: "Auto-discover and consolidate all .md files in project into comprehensive PRD"
+
+  # PRD Analysis
+  analyze-prd:
+    prompt: "commands/prd/analyze.md"
+    description: "Validate and analyze PRD, show customizations (v4.1: with AI confidence scoring)"
+
+  refine-prd:
+    prompt: "commands/prd/refine.md"
+    description: "Interactively improve PRD quality through AI-guided refinement"
+
+  # PRD Strategic Planning (NEW v4.1 - Phase 2)
+  estimate-cost:
+    prompt: "commands/planning/estimate-cost.md"
+    description: "💰 Generate detailed cost breakdown from PRD - labor, infrastructure, compliance"
+
+  analyze-dependencies:
+    prompt: "commands/planning/analyze-dependencies.md"
+    description: "🔗 Map feature dependencies and critical path - implementation order recommendations"
+
+  generate-stakeholder-review:
+    prompt: "commands/planning/stakeholder-review.md"
+    description: "📋 Create stakeholder review checklists - business, technical, compliance sign-offs"
+
+  generate-implementation-plan:
+    prompt: "commands/planning/implementation-plan.md"
+    description: "📅 Create intelligent implementation plan with sprints, team allocation, and dependency-aware task ordering"
+
+  # PRPROMPTS Generation Commands
+  gen-prprompts:
+    prompt: "commands/prprompts/generate-all.md"
+    description: "Generate all 32 PRPROMPTS files from PRD"
+
+  gen-phase-1:
+    prompt: "commands/prprompts/phase-1.md"
+    description: "Generate Phase 1: Core Architecture (10 files)"
+
+  gen-phase-2:
+    prompt: "commands/prprompts/phase-2.md"
+    description: "Generate Phase 2: Quality & Security (12 files)"
+
+  gen-phase-3:
+    prompt: "commands/prprompts/phase-3.md"
+    description: "Generate Phase 3: Demo & Learning (10 files)"
+
+  gen-file:
+    prompt: "commands/prprompts/single-file.md"
+    description: "Generate a single PRPROMPTS file by name"
+
+  # v4.0 Automation Commands (Full AI-Powered Development Pipeline)
+  bootstrap-from-prprompts:
+    prompt: "commands/automation/bootstrap.md"
+    description: "🚀 Complete project setup from PRPROMPTS (2 min) - Clean Architecture, security, tests"
+
+  implement-next:
+    prompt: "commands/automation/implement-next.md"
+    description: "✨ Auto-implement next feature from IMPLEMENTATION_PLAN.md (10 min) - with tests & validation"
+
+  update-plan:
+    prompt: "commands/automation/update-plan.md"
+    description: "📊 Re-plan based on actual progress - velocity tracking, blocker analysis, sprint reallocation"
+
+  full-cycle:
+    prompt: "commands/automation/full-cycle.md"
+    description: "🤖 Auto-implement 1-10 features automatically (1-2 hours) - complete automation loop"
+
+  review-and-commit:
+    prompt: "commands/automation/review-commit.md"
+    description: "✅ Validate and commit changes - PRPROMPTS compliance, security checks, tests"
+
+  qa-check:
+    prompt: "commands/automation/qa-check.md"
+    description: "🔍 Comprehensive compliance audit - generates QA_REPORT.md with score"
+
+  # v5.0 React-to-Flutter Refactoring Commands
+  convert-react-to-flutter:
+    prompt: "commands/refactoring/convert-react-to-flutter.md"
+    description: "🔄 Convert React/React Native app to Flutter - Complete transformation with Clean Architecture & BLoC"
+
+  validate-flutter:
+    prompt: "commands/refactoring/validate-flutter.md"
+    description: "✅ Validate Flutter code quality - Comprehensive checks for code, security, performance, accessibility"
+
+# Project Settings
+project:
+  name: "PRPROMPTS Flutter Generator"
+  version: "5.0.1"
+  description: "AI-powered Flutter development with full automation + React-to-Flutter refactoring - 40-60x faster (3-5 days → 2-3 hours)"
+
+# Default Behaviors
+defaults:
+  auto_approve: false
+  verbose: true
+  save_context: true

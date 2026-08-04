@@ -1,0 +1,19 @@
+{
+  "enabledPlugins": {
+    "superpowers@superpowers-marketplace": false
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "\"C:\\Users\\Dell\\AppData\\Local\\jcode\\bin\\jcode.exe\" setup-hotkey --notify-cli-launch claude",
+            "timeout": 5,
+            "type": "command"
+          }
+        ],
+        "matcher": "startup|resume"
+      }
+    ]
+  }
+}

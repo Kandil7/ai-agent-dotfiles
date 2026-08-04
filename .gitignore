@@ -1,0 +1,69 @@
+# ============================================================
+# CREDENTIALS & SECRETS — never commit these
+# ============================================================
+**/auth.json
+**/.credentials.json
+**/credentials.json
+**/*oauth*
+**/*token*
+**/*secret*
+**/google_accounts.json
+**/.env
+**/*.pem
+**/*.key
+**/mcp-oauth-tokens.json
+
+# ============================================================
+# SESSIONS, HISTORY, LOGS, CACHES
+# ============================================================
+**/sessions/
+**/history*
+**/logs/
+**/log/
+**/cache/
+**/backups/
+**/debug/
+**/telemetry/
+**/file-history/
+**/shell-snapshots/
+**/projects/
+**/tasks/
+**/plans/
+**/session-env/
+**/ai-tracking/
+**/extensions/
+**/ide/
+**/.system/
+**/.tmp/
+**/tmp/
+**/dev_data/
+**/index/
+**/.migrations/
+**/.utils/
+**/.sandbox/
+**/.sandbox-secrets/
+**/memories/
+**/goals*
+**/state_*
+**/logs_*
+**/models_cache.json
+**/*.sqlite*
+**/*.jsonl
+**/*.log
+
+# ============================================================
+# DEPENDENCIES & BUILD ARTIFACTS
+# ============================================================
+**/node_modules/
+**/package.json
+**/package-lock.json
+**/bun.lock
+**/dist/
+**/build/
+
+# ============================================================
+# OS / EDITOR JUNK
+# ============================================================
+Thumbs.db
+Desktop.ini
+.DS_Store
