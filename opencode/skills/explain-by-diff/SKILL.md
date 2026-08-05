@@ -3,7 +3,7 @@ name: explain-by-diff
 description: >-
   Explain code changes via git diff instead of full files: what changed, why,
   and the impact on the system. Use for reviewing commits, PRs, or agent-made
-  edits. Logs to learning/diff-<commit>.md.
+  edits. Logs to docs/learning/diffs/diff-<commit>.md.
 ---
 
 # Skill: explain-by-diff
@@ -37,9 +37,9 @@ Use this skill when:
 
 ## Outputs
 
-An explanation document saved under `learning/` via the `learning-log` tool:
+An explanation document saved under `docs/learning/` via the `learning-log` tool:
 
-- `learning/diff-<commit>.md`
+- `docs/learning/diffs/diff-<commit>.md`
 
 Sections:
 
@@ -71,7 +71,7 @@ Sections:
    - Patterns, pitfalls, or design ideas worth remembering.
 
 6. **Log the explanation**
-   - Call `learning-log` with `filePath: diff-<commit>.md`.
+   - Call `learning-log` with `filePath: diffs/diff-<commit>.md`.
 
 ---
 

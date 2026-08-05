@@ -4,7 +4,7 @@ description: >-
   Compare architectural and technical alternatives for any module, feature, or
   pipeline: enumerate 2-3 options, build a pros/cons table across performance,
   complexity, reliability, cost, and ecosystem, give a recommendation with
-  conditions to revisit, and log to learning/design-alternatives-<topic>.md.
+  conditions to revisit, and log to docs/learning/design/design-alternatives-<topic>.md.
 ---
 
 # Skill: design-alternatives
@@ -42,9 +42,9 @@ Use this skill when:
 
 ## Outputs
 
-A comparison document saved under `learning/` via the `learning-log` tool:
+A comparison document saved under `docs/learning/` via the `learning-log` tool:
 
-- `learning/design-alternatives-<topic>.md`
+- `docs/learning/design/design-alternatives-<topic>.md`
 
 Sections:
 
@@ -81,7 +81,7 @@ Sections:
      (e.g., "switch to GraphRAG if corpus grows past 1M chunks").
 
 6. **Log the analysis**
-   - Call `learning-log` with `filePath: design-alternatives-<topic>.md`
+   - Call `learning-log` with `filePath: design/design-alternatives-<topic>.md`
      and the full comparison in `explanation` / `alternatives` fields.
 
 7. **Offer next steps**

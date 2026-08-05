@@ -56,6 +56,7 @@
 # ============================================================
 **/node_modules/
 **/package.json
+!opencode/package.json
 **/package-lock.json
 **/bun.lock
 **/dist/

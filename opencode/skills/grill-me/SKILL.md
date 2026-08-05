@@ -41,7 +41,7 @@ Use this skill when:
 
 Questions only — plus optional logging of the Q&A into a session file:
 
-- Questions list inside `learning/YYYY-MM-DD-session-<topic>.md`
+- Questions list inside `docs/learning/sessions/YYYY-MM-DD-session-<topic>.md`
 - Comprehension verdict (strengths, gaps) at the end
 
 ---
@@ -67,7 +67,7 @@ Questions only — plus optional logging of the Q&A into a session file:
 
 5. **Log the exchange**
    - Call `learning-log` with the questions, answers, and verdict in
-     `YYYY-MM-DD-session-<topic>.md` (or append to an existing session file).
+     `sessions/YYYY-MM-DD-session-<topic>.md` (or append to an existing session file).
 
 ---
 

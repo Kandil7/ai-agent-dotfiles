@@ -3,7 +3,8 @@ name: session-to-curriculum
 description: >-
   Convert a raw Q&A or debugging session into a structured lesson: summary, key
   concepts, common mistakes, and exercises. Logs to
-  learning/session-<id>-lesson.md so every session becomes reusable material.
+  docs/learning/curricula/session-<id>-lesson.md so every session becomes
+  reusable material.
 ---
 
 # Skill: session-to-curriculum
@@ -37,9 +38,9 @@ Use this skill when:
 
 ## Outputs
 
-A lesson document saved under `learning/` via the `learning-log` tool:
+A lesson document saved under `docs/learning/` via the `learning-log` tool:
 
-- `learning/session-<id>-lesson.md`
+- `docs/learning/curricula/session-<id>-lesson.md`
 
 Sections:
 
@@ -71,7 +72,7 @@ Sections:
    - 3–5 exercises that test the concepts from this session, grounded in the repo.
 
 6. **Log the lesson**
-   - Call `learning-log` with `filePath: session-<id>-lesson.md`.
+   - Call `learning-log` with `filePath: curricula/session-<id>-lesson.md`.
 
 7. **Offer expansion**
    - Suggest turning this into a full `teach-mode` curriculum if the topic is big.

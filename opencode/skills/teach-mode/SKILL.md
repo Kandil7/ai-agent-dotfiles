@@ -3,7 +3,7 @@ name: teach-mode
 description: >-
   Turn any topic (RAG, FastAPI, agents, vector DBs, etc.) into a structured
   curriculum: introduction, 3 progressive levels, 3-5 exercises per level, and a
-  check of understanding. Logs to learning/curriculum-<topic>.md.
+  check of understanding. Logs to docs/learning/curricula/curriculum-<topic>.md.
 ---
 
 # Skill: teach-mode
@@ -40,9 +40,9 @@ Use this skill when:
 
 ## Outputs
 
-A curriculum document saved under `learning/` via the `learning-log` tool:
+A curriculum document saved under `docs/learning/` via the `learning-log` tool:
 
-- `learning/curriculum-<topic>.md`
+- `docs/learning/curricula/curriculum-<topic>.md`
 
 Sections:
 
@@ -75,7 +75,7 @@ Sections:
    - 5–10 quiz questions per level to verify understanding.
 
 6. **Log the curriculum**
-   - Call `learning-log` with `filePath: curriculum-<topic>.md`.
+   - Call `learning-log` with `filePath: curricula/curriculum-<topic>.md`.
 
 7. **Offer to teach**
    - Ask whether to start with Level 1 in a `teach-mode` session,

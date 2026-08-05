@@ -3,7 +3,7 @@ name: project-decomposition
 description: >-
   Break any project or feature into logical phases: spec, architecture,
   implementation, testing, deployment — with deliverables, dependencies, and a
-  weekly/sprint mapping. Logs to learning/project-plan-<project>.md.
+  weekly/sprint mapping. Logs to docs/learning/design/project-plan-<project>.md.
 ---
 
 # Skill: project-decomposition
@@ -40,9 +40,9 @@ Use this skill when:
 
 ## Outputs
 
-A plan document saved under `learning/` via the `learning-log` tool:
+A plan document saved under `docs/learning/` via the `learning-log` tool:
 
-- `learning/project-plan-<project>.md`
+- `docs/learning/design/project-plan-<project>.md`
 
 Sections:
 
@@ -75,7 +75,7 @@ Sections:
    - Unknowns (libraries, data, model behavior) and how to de-risk (spikes, prototypes).
 
 6. **Log the plan**
-   - Call `learning-log` with `filePath: project-plan-<project>.md`.
+   - Call `learning-log` with `filePath: design/project-plan-<project>.md`.
 
 7. **Track progress**
    - After each sprint, append a status update to the same file (what shipped,

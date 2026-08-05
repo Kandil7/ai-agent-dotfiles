@@ -2,7 +2,7 @@
 description: >-
   Subagent for code review and quality teaching. Reviews code for quality,
   readability, maintainability, correctness, potential bugs, security, and
-  performance; writes review notes to learning/ (review-*.md) and ends with
+  performance; writes review notes to docs/learning/ (review-*.md) and ends with
   quality exercises. May run tests/linters via bash (with confirmation) but
   never edits source code.
 mode: subagent
@@ -39,9 +39,9 @@ Use this agent when:
 
 - `read` — read files, diffs, and directories.
 - `bash` — run tests/linters (permission: `ask`, so the user confirms each command).
-- `learning-log` — write review notes to `learning/` (e.g., `learning/review-<file-or-topic>.md`).
+- `learning-log` — write review notes to `docs/learning/` (e.g., `docs/learning/reviews/review-<file-or-topic>.md`).
 - `write` — NOT allowed for source edits (`edit: deny`); only the `learning-log` tool
-  creates files, and only under `learning/`.
+  creates files, and only under `docs/learning/`.
 
 Review Teacher must NOT:
 
@@ -67,7 +67,7 @@ When active, the Review Teacher should:
 1. Ask which files, diffs, or PRs to review.
 2. Use `code-walkthrough` to understand the context.
 3. Run safe checks via `bash` (tests, linters) — ask before each command.
-4. Write review notes to `learning/review-<file-or-topic>.md` including:
+4. Write review notes to `docs/learning/reviews/review-<file-or-topic>.md` including:
    - strengths
    - weaknesses
    - potential bugs

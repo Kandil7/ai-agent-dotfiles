@@ -1,5 +1,5 @@
 // .opencode/tools/learning-log.js
-// Custom OpenCode tool: persists structured learning entries to Markdown files under `learning/`.
+// Custom OpenCode tool: persists structured learning entries to Markdown files under `docs/learning/`.
 // The filename becomes the tool name, so this registers the `learning-log` tool.
 // All agents in .opencode/agents/ rely on this tool to write learning artifacts.
 import { tool } from "@opencode-ai/plugin"
@@ -8,7 +8,7 @@ import path from "node:path"
 
 export default tool({
   description:
-    "Persist a learning entry into a Markdown file under learning/, following the learning-log format " +
+    "Persist a learning entry into a Markdown file under docs/learning/, following the learning-log format " +
     "(Context, Explanation, Alternatives, Rationale, Exercises, Next Steps). " +
     "Use for code walkthroughs, design alternatives, decision rationales, session logs, project overviews, and lessons. " +
     "Appends a new dated entry by default; supports overwrite.",
@@ -16,8 +16,9 @@ export default tool({
     filePath: tool.schema
       .string()
       .describe(
-        "Relative path inside learning/ (never absolute, no leading ../). Examples: code-walkthrough-rag_pipeline.md, " +
-        "design-alternatives-rag.md, decision-vector-db-switch.md, 2026-08-04-session-agents.md, overview-athar.md"
+        "Relative path inside docs/learning/ (never absolute, no leading ../). Use subfolders to mirror the " +
+        "repo or categorize: walkthroughs/src/rag_pipeline.py.md, modules/athar.md, design/design-alternatives-rag.md, " +
+        "decisions/decision-vector-db-switch.md, sessions/2026-08-04-session-agents.md"
       ),
     title: tool.schema.string().describe("Concise title for this entry, e.g. 'RAG Pipeline Walkthrough'."),
     context: tool.schema
@@ -54,11 +55,11 @@ export default tool({
   },
   async execute(args, context) {
     const root = context.worktree || context.directory
-    const learningDir = path.join(root, "learning")
+    const learningDir = path.join(root, "docs", "learning")
     const target = path.resolve(learningDir, args.filePath)
     const rel = path.relative(learningDir, target)
     if (rel.startsWith("..") || path.isAbsolute(rel)) {
-      throw new Error(`Refusing to write outside learning/: ${args.filePath}`)
+      throw new Error(`Refusing to write outside docs/learning/: ${args.filePath}`)
     }
     fs.mkdirSync(path.dirname(target), { recursive: true })
 
@@ -78,10 +79,10 @@ export default tool({
 
     if (args.mode === "overwrite" || !fs.existsSync(target)) {
       fs.writeFileSync(target, `# ${args.title}\n\n${body}\n\n---\n`, "utf8")
-      return `Created learning/${args.filePath}`
+      return `Created docs/learning/${args.filePath}`
     }
     const entry = `\n## ${args.title} (${today})\n\n${body}\n\n---\n`
     fs.appendFileSync(target, entry, "utf8")
-    return `Appended entry "${args.title}" to learning/${args.filePath}`
+    return `Appended entry "${args.title}" to docs/learning/${args.filePath}`
   },
 })

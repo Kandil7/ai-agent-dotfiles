@@ -2,8 +2,10 @@
 name: understand-anything
 description: >-
   Build a high-level map of any codebase: modules, services, endpoints, data
-  stores, agents, and pipelines. Produces learning/overview-<repo>.md used as a
-  navigation map for all deeper learning sessions.
+  stores, agents, and pipelines. Produces docs/learning/architecture.md with
+  mermaid diagrams, docs/learning/modules/*.md summaries, and the
+  docs/learning/00-INDEX.md coverage tracker used as navigation map for all
+  deeper learning sessions.
 ---
 
 # Skill: understand-anything
@@ -37,21 +39,28 @@ Use this skill when:
 
 ## Outputs
 
-An overview document saved under `learning/` via the `learning-log` tool:
+Documents saved under `docs/learning/` via the `learning-log` tool:
 
-- `learning/overview-<repo>.md`
+1. **`docs/learning/architecture.md`** — the full-project architecture map:
+   1. Repo purpose (from README/docs)
+   2. Top-level structure (directories and their roles)
+   3. Modules / packages
+   4. Services and their responsibilities
+   5. Entry points & endpoints (CLI, API routes)
+   6. Data stores (databases, vector stores, caches)
+   7. Agents / pipelines (if any)
+   8. Tech stack summary
+   9. Where to start learning (recommended reading order)
+   - Include **mermaid diagrams**: module dependency graph, main data flow,
+     and request lifecycle when the system is non-trivial.
 
-Sections:
+2. **`docs/learning/modules/<module>.md`** — one summary per major module/subsystem:
+   responsibility, key files, entry points, dependencies, open questions.
 
-1. Repo purpose (from README/docs)
-2. Top-level structure (directories and their roles)
-3. Modules / packages
-4. Services and their responsibilities
-5. Entry points & endpoints (CLI, API routes)
-6. Data stores (databases, vector stores, caches)
-7. Agents / pipelines (if any)
-8. Tech stack summary
-9. Where to start learning (recommended reading order)
+3. **`docs/learning/00-INDEX.md`** — the coverage tracker (see `document-project`):
+   a table of documented files with status (new / updated / stale / pending),
+   plus links to all docs. This becomes the navigation hub for the whole
+   `docs/learning/` tree.
 
 ---
 
@@ -75,9 +84,12 @@ Sections:
    - Locate agent definitions, RAG pipelines, background jobs.
 
 6. **Write the map**
-   - Call `learning-log` with `filePath: overview-<repo>.md`.
-
-7. **Recommend reading order**
+   - Call `learning-log` with `filePath: architecture.md` (overwrite mode if it exists)
+     and one `modules/<module>.md` per major module.
+7. **Bootstrap the index**
+   - Create/refresh `docs/learning/00-INDEX.md` listing everything produced and the
+     documented files with status `new`.
+8. **Recommend reading order**
    - Suggest which files to study first, based on the user's goal.
 
 ---

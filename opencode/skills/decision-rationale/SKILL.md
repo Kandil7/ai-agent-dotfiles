@@ -2,9 +2,9 @@
 name: decision-rationale
 description: >-
   Force a written rationale before any significant change: problem, options,
-  chosen path, justification, and conditions to revisit. Logs to
-  learning/decision-<change>.md BEFORE code is touched, so every change has a
-  documented story.
+  chosen path, justification, and conditions to revisit. Logs an ADR
+  (docs/learning/decisions/adr-<n>-<slug>.md) BEFORE code is touched, so every
+  change has a documented, searchable story with status tracking.
 ---
 
 # Skill: decision-rationale
@@ -39,18 +39,36 @@ Use this skill when:
 
 ## Outputs
 
-A rationale document saved under `learning/` via the `learning-log` tool:
+An **ADR** (Architecture Decision Record) saved under `docs/learning/decisions/`
+via the `learning-log` tool:
 
-- `learning/decision-<change-or-commit>.md`
+- `docs/learning/decisions/adr-<n>-<slug>.md`
+  (e.g. `adr-007-vector-db-qdrant.md`; `<n>` = next number in the folder)
+- Legacy naming `decision-<change>.md` is allowed for small personal decisions;
+  prefer ADR for anything with team/architecture impact.
 
 Sections:
 
-1. Problem
-2. Options (briefly, link to `design-alternatives-<topic>.md` if available)
-3. Chosen path
-4. Why this (justification tied to constraints)
-5. Conditions to revisit
-6. Related links (PR, ADR, commit)
+1. **Status** — `proposed` | `accepted` | `superseded` (with date + reason)
+2. **Date** — when the decision was made
+3. **Context** — the problem, constraints, and why a decision is needed
+4. **Decision** — what was chosen, in one clear statement
+5. **Alternatives** — 2–3 options considered (link `design-alternatives-<topic>.md` if available)
+6. **Consequences** — what improves, what gets harder, what to monitor
+7. **Conditions to revisit** — "if X happens, we should reconsider"
+8. **Related** — links to PR, commit, superseded ADRs
+
+### Decision log (`decisions/README.md`)
+
+Every `docs/learning/decisions/` folder should have a `README.md` log table:
+
+```markdown
+| # | Title | Status | Date | Supersedes |
+|---|---|---|---|---|
+| 007 | Vector DB: Qdrant | accepted | 2026-08-05 | 003 |
+```
+
+Update the log after writing or changing an ADR's status.
 
 ---
 
@@ -70,8 +88,10 @@ Sections:
    - "If X happens, we should reconsider" — makes the decision falsifiable.
 
 5. **Log BEFORE coding**
-   - Call `learning-log` with `filePath: decision-<change>.md` **before** making edits.
-   - Reference the log in the PR description or ADR after the change.
+   - Check the next ADR number in `docs/learning/decisions/`.
+   - Call `learning-log` with `filePath: decisions/adr-<n>-<slug>.md` **before** making edits.
+   - Update `decisions/README.md` (create it with a header table if missing).
+   - Reference the ADR in the PR description after the change.
 
 6. **Only then implement**
    - Proceed with the change (or hand off to a coding agent).
