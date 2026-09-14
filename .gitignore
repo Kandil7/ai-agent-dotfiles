@@ -1,28 +1,70 @@
-# Node
-node_modules/
-package-lock.json
-bun.lock
+# ============================================================
+# CREDENTIALS & SECRETS — never commit these
+# ============================================================
+**/auth.json
+**/.credentials.json
+**/credentials.json
+**/*oauth*
+**/*token*
+**/*secret*
+**/google_accounts.json
+**/.env
+**/*.pem
+**/*.key
+**/mcp-oauth-tokens.json
 
-# Old backups (contain outdated configs)
-backup/
+# ============================================================
+# SESSIONS, HISTORY, LOGS, CACHES
+# ============================================================
+**/sessions/
+**/history*
+**/logs/
+**/log/
+**/cache/
+**/backups/
+**/debug/
+**/telemetry/
+**/file-history/
+**/shell-snapshots/
+**/projects/
+**/tasks/
+**/plans/
+**/session-env/
+**/ai-tracking/
+**/extensions/
+**/ide/
+**/.system/
+**/.tmp/
+**/tmp/
+**/dev_data/
+**/index/
+**/.migrations/
+**/.utils/
+**/.sandbox/
+**/.sandbox-secrets/
+**/memories/
+**/goals*
+**/state_*
+**/logs_*
+**/models_cache.json
+**/*.sqlite*
+**/*.jsonl
+**/*.log
 
-# Session logs (contain operational data, may include leaked secrets from other projects)
-memory/sessions/
+# ============================================================
+# DEPENDENCIES & BUILD ARTIFACTS
+# ============================================================
+**/node_modules/
+**/package.json
+!opencode/package.json
+**/package-lock.json
+**/bun.lock
+**/dist/
+**/build/
 
-# Config backups (dated copies of opencode.jsonc)
-*.bak
-*.bak-*
-*.bak2
-
-# OS
-.DS_Store
+# ============================================================
+# OS / EDITOR JUNK
+# ============================================================
 Thumbs.db
-desktop.ini
-
-# IDE
-.vscode/
-.idea/
-
-# Temp
-*.tmp
-*.swp
+Desktop.ini
+.DS_Store

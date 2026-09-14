@@ -1,0 +1,10 @@
+model = "gpt-5.2-codex"
+model_reasoning_effort = "medium"
+personality = "pragmatic"
+
+[features]
+experimental_windows_sandbox = true
+elevated_windows_sandbox = true
+
+[projects.'K:\']
+trust_level = "trusted"

@@ -1,0 +1,8 @@
+prefix_rule(pattern=["C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "-Command", "git add sprints/week01_rag_production/src/services/indexing.py sprints/week01_rag_production/src/services/__init__.py sprints/week01_rag_production/src/ingestion/__init__.py sprints/week01_rag_production/src/ingestion/mongo_storage.py sprints/week01_rag_production/api.py"], decision="allow")
+prefix_rule(pattern=["C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "-Command", "git commit -m \"feat(rag): unify indexing across pipeline and persistence\""], decision="allow")
+prefix_rule(pattern=["C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "-Command", "git commit -m \"chore(rag): rename notebook-to-production guide\""], decision="allow")
+prefix_rule(pattern=["C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "-Command", "git add sprints/week01_rag_production/src/retrieval/vector_store.py"], decision="allow")
+prefix_rule(pattern=["C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "-Command", "git commit -m \"fix(rag): correct chroma vector store initialization\""], decision="allow")
+prefix_rule(pattern=["C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "-Command", "git add sprints/week01_rag_production/docker-compose.yml sprints/week01_rag_production/nginx.conf sprints/week01_rag_production/Dockerfile"], decision="allow")
+prefix_rule(pattern=["C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "-Command", "git commit -m \"chore(rag): add docker deployment assets\""], decision="allow")
+prefix_rule(pattern=["C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "-Command", "git ls-files sprints/week01_rag_production/nginx.conf"], decision="allow")

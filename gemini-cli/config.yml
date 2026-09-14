@@ -1,0 +1,170 @@
+# Gemini Code CLI Configuration for PRPROMPTS Generator
+# Version: 2.3.0 (Slash Commands)
+# Optimized for Gemini 2.5 Pro (1M token context window)
+
+commands:
+  # PRD Creation Commands
+  create-prd:
+    prompt: "commands/prd/create.md"
+    description: "[prprompts] Interactive PRD creation wizard (10 questions)"
+    category: "PRD Generation"
+
+  auto-gen-prd:
+    prompt: "commands/prd/auto-generate.md"
+    description: "Auto-generate PRD from description (zero interaction)"
+    category: "PRD Generation"
+
+  prd-from-files:
+    prompt: "commands/prd/from-files.md"
+    description: "Generate PRD from existing markdown files (optional input)"
+    category: "PRD Generation"
+
+  auto-prd-from-project:
+    prompt: "commands/prd/auto-from-project.md"
+    description: "Auto-discover and consolidate all .md files in project into comprehensive PRD"
+    category: "PRD Generation"
+
+  # PRD Analysis
+  analyze-prd:
+    prompt: "commands/prd/analyze.md"
+    description: "[prprompts] Validate and analyze PRD, show customizations (v4.1: with AI confidence scoring)"
+    category: "PRD Generation"
+
+  refine-prd:
+    prompt: "commands/prd/refine.md"
+    description: "[prprompts] Interactively improve PRD quality through AI-guided refinement"
+    category: "PRD Generation"
+
+  # PRD Strategic Planning (NEW v4.1 - Phase 2)
+  estimate-cost:
+    prompt: "commands/planning/estimate-cost.md"
+    description: "💰 Generate detailed cost breakdown from PRD - labor, infrastructure, compliance"
+    category: "Planning"
+
+  analyze-dependencies:
+    prompt: "commands/planning/analyze-dependencies.md"
+    description: "🔗 Map feature dependencies and critical path - implementation order recommendations"
+    category: "Planning"
+
+  generate-stakeholder-review:
+    prompt: "commands/planning/stakeholder-review.md"
+    description: "📋 Create stakeholder review checklists - business, technical, compliance sign-offs"
+    category: "Planning"
+
+  generate-implementation-plan:
+    prompt: "commands/planning/implementation-plan.md"
+    description: "📅 Create intelligent implementation plan with sprints, team allocation, and dependency-aware task ordering"
+    category: "Planning"
+
+  # PRPROMPTS Generation Commands
+  gen-prprompts:
+    prompt: "commands/prprompts/generate-all.md"
+    description: "[prprompts] Generate all 32 PRPROMPTS files from PRD"
+    category: "PRPROMPTS Generation"
+
+  gen-phase-1:
+    prompt: "commands/prprompts/phase-1.md"
+    description: "Generate Phase 1: Core Architecture (10 files)"
+    category: "PRPROMPTS Generation"
+
+  gen-phase-2:
+    prompt: "commands/prprompts/phase-2.md"
+    description: "Generate Phase 2: Quality & Security (12 files)"
+    category: "PRPROMPTS Generation"
+
+  gen-phase-3:
+    prompt: "commands/prprompts/phase-3.md"
+    description: "Generate Phase 3: Demo & Learning (10 files)"
+    category: "PRPROMPTS Generation"
+
+  gen-file:
+    prompt: "commands/prprompts/single-file.md"
+    description: "Generate a single PRPROMPTS file by name"
+    category: "PRPROMPTS Generation"
+
+  # v4.0 Automation Commands (Full AI-Powered Development Pipeline)
+  bootstrap-from-prprompts:
+    prompt: "commands/automation/bootstrap.md"
+    description: "🚀 [prprompts] Complete project setup from PRPROMPTS (2 min) - Clean Architecture, security, tests"
+    category: "Automation"
+    badge: "NEW"
+
+  implement-next:
+    prompt: "commands/automation/implement-next.md"
+    description: "✨ [prprompts] Auto-implement next feature from IMPLEMENTATION_PLAN.md (10 min) - with tests & validation"
+    category: "Automation"
+    badge: "NEW"
+
+  update-plan:
+    prompt: "commands/automation/update-plan.md"
+    description: "📊 Re-plan based on actual progress - velocity tracking, blocker analysis, sprint reallocation"
+    category: "Automation"
+    badge: "NEW"
+
+  full-cycle:
+    prompt: "commands/automation/full-cycle.md"
+    description: "🤖 [prprompts] Auto-implement 1-10 features automatically (1-2 hours) - complete automation loop"
+    category: "Automation"
+    badge: "NEW"
+
+  review-and-commit:
+    prompt: "commands/automation/review-commit.md"
+    description: "✅ [prprompts] Validate and commit changes - PRPROMPTS compliance, security checks, tests"
+    category: "Automation"
+    badge: "NEW"
+
+  qa-check:
+    prompt: "commands/automation/qa-check.md"
+    description: "🔍 [prprompts] Comprehensive compliance audit - generates QA_REPORT.md with score"
+    category: "Automation"
+    badge: "NEW"
+
+  # v5.0 React-to-Flutter Refactoring Commands
+  convert-react-to-flutter:
+    prompt: "commands/refactoring/convert-react-to-flutter.md"
+    description: "🔄 [prprompts] Convert React/React Native app to Flutter - Complete transformation with Clean Architecture & BLoC"
+    category: "Refactoring"
+    badge: "NEW"
+
+  validate-flutter:
+    prompt: "commands/refactoring/validate-flutter.md"
+    description: "✅ [prprompts] Validate Flutter code quality - Comprehensive checks for code, security, performance, accessibility"
+    category: "Refactoring"
+    badge: "NEW"
+
+# Project Settings
+project:
+  name: "PRPROMPTS Flutter Generator (Gemini Edition)"
+  version: "5.0.1"
+  description: "AI-powered Flutter development with full automation + React-to-Flutter refactoring - 40-60x faster (3-5 days → 2-3 hours)"
+  ai_model: "gemini-2.5-pro"
+  context_length: "1M tokens"
+
+# Default Behaviors
+defaults:
+  auto_approve: false
+  verbose: true
+  save_context: true
+
+# Gemini-Specific Optimizations
+gemini_settings:
+  # Leverage Gemini's massive 1M token context
+  use_extended_context: true
+  max_context_tokens: 1000000
+
+  # Enable agent mode with ReAct loop
+  enable_agent_mode: true
+  use_react_loop: true
+
+  # Gemini excels at multi-file understanding
+  enable_codebase_analysis: true
+
+  # Free tier limits (preview)
+  free_tier:
+    requests_per_minute: 60
+    requests_per_day: 1000
+    context_window: "1M tokens"
+
+  # Agentic features
+  enable_workflow_automation: true
+  multi_step_planning: true

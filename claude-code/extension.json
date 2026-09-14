@@ -1,0 +1,40 @@
+{
+  "name": "prprompts-flutter-generator",
+  "version": "4.4.3",
+  "description": "AI-powered Flutter development with complete automation. Generate 32 security-audited guides & auto-implement production-ready apps in 2-3 hours (40-60x faster). Supports HIPAA, PCI-DSS, GDPR compliance with built-in security patterns.",
+  "author": {
+    "name": "Kandil7",
+    "url": "https://github.com/Kandil7"
+  },
+  "homepage": "https://github.com/Kandil7/prprompts-flutter-generator#readme",
+  "repository": "https://github.com/Kandil7/prprompts-flutter-generator",
+  "license": "MIT",
+  "keywords": [
+    "flutter",
+    "claude",
+    "claude-code",
+    "anthropic",
+    "prprompts",
+    "automation",
+    "ai-automation",
+    "production-ready",
+    "clean-architecture",
+    "bloc",
+    "hipaa",
+    "pci-dss",
+    "gdpr",
+    "compliance",
+    "security-audited",
+    "rapid-development",
+    "code-generation",
+    "flutter-development",
+    "ai-assisted",
+    "development-tools"
+  ],
+  "commands": [
+    "./commands/prd",
+    "./commands/planning",
+    "./commands/prprompts",
+    "./commands/automation"
+  ]
+}
