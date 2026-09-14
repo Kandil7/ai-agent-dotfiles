@@ -1,0 +1,57 @@
+# AI assets stay OUT of Git
+D:/AI/
+C:/AI-Workstation/
+
+# Models, checkpoints, datasets
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.gguf
+*.onnx
+*.bin
+*.h5
+*.joblib
+model_weights/
+checkpoints/
+datasets/
+data/raw/
+
+# Experiments and logs
+experiments/
+mlruns/
+wandb/
+runs/
+logs/
+*.log
+
+# Secrets
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+id_rsa*
+*.p12
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Node
+node_modules/
+dist/
+build/
+
+# OS / editor
+Thumbs.db
+.DS_Store
+.idea/
+.vscode/

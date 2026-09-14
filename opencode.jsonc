@@ -1,0 +1,355 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  // ============================================================
+  // Global OpenCode Operating System — Dell Precision 7740
+  // Workstation: i7-9850H, RTX 5000 16GB, 32GB RAM, WSL2 Ubuntu 24.04
+  // See AGENTS.md in this directory for the engineering philosophy.
+  // ============================================================
+
+  "autoupdate": "notify",
+  "share": "disabled",
+  "snapshot": true,
+  "compaction": {
+    "auto": true,
+    "tail_turns": 15
+  },
+
+  // ------------------------------------------------------------
+  // WATCHER — keep heavyweight AI artifacts out of context watching
+  // ------------------------------------------------------------
+  "watcher": {
+    "ignore": [
+      "**/__pycache__/**",
+      "**/.git/**",
+      "**/node_modules/**",
+      "**/.venv/**",
+      "**/data/**",
+      "**/wandb/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/*.bin",
+      "**/*.pt",
+      "**/*.ckpt",
+      "**/*.safetensors",
+      "**/*.gguf"
+    ]
+  },
+
+  // ------------------------------------------------------------
+  // FORMATTER / LSP — ruff verified installed (0.16.4).
+  // pyright NOT installed on Windows or WSL: LSP left unset until
+  // pyright is deliberately installed (needs approval).
+  // ------------------------------------------------------------
+  "formatter": {
+    "ruff": {
+      "command": ["ruff", "format"],
+      "extensions": [".py"]
+    }
+  },
+
+  // ------------------------------------------------------------
+  // GLOBAL CONTRACT (loaded into every session) — knowledge
+  // system, handoff contract, acceptance criteria. See
+  // specs/ops-core.md. Keep this file lean (one file, not four).
+  // ------------------------------------------------------------
+  "instructions": ["specs/ops-core.md"],
+
+  // ------------------------------------------------------------
+  // MODELS
+  // Primary local: ollama/qwen3.5:9b-32k — tool_call: true,
+  //   reasoning: true, 32K context, ~50 tok/s on RTX 5000.
+  //   Replaced qwen2.5-coder:7b (no tool calling support).
+  // Arabic: iKhalid/ALLaM:7b — tool_call: false, 8K context.
+  // ------------------------------------------------------------
+  "small_model": "ollama/qwen3.5:9b-32k",
+
+  // ------------------------------------------------------------
+  // MCP SERVERS — only value-adding servers, limited permissions.
+  // github: disabled until `gh auth login` + gh MCP extension.
+  // Enable by flipping "enabled": true.
+  // ------------------------------------------------------------
+  "mcp": {
+    "github": {
+      "enabled": false
+    },
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "enabled": true
+    },
+    "code-review-graph": {
+      "type": "local",
+      "command": ["uvx", "code-review-graph", "serve"],
+      "enabled": true
+    },
+    "codebase-memory": {
+      "type": "local",
+      "command": ["cmd.exe", "/c", "D:\\AI\\tools\\codebase-memory-mcp\\run.cmd"],
+      "enabled": true
+    },
+    "repomix": {
+      "type": "local",
+      "command": ["repomix", "--mcp"],
+      "enabled": true
+    },
+    "graphify": {
+      "type": "local",
+      "command": ["graphify-mcp", "--transport", "stdio"],
+      "enabled": true
+    }
+  },
+
+  // ------------------------------------------------------------
+  // PROVIDERS
+  // Ollama local provider — canonical form per docs (providers.mdx):
+  // npm adapter + /v1 baseURL + explicit models list are REQUIRED,
+  // otherwise the provider resolves zero models and -m ollama/...
+  // fails. num_ctx 32k per docs guidance for reliable tool calls.
+  // RTX 5000 16GB: qwen3.5:9b + ALLaM:7b fit simultaneously (~15.6 GB).
+  // ------------------------------------------------------------
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local)",
+      "options": {
+        "baseURL": "http://localhost:11434/v1"
+      },
+      "models": {
+        "qwen3.5:9b-32k": {
+          "name": "Qwen3.5 9B (local, 32K)",
+          "tool_call": true,
+          "reasoning": true,
+          "limit": { "context": 32768, "output": 8192 },
+          "options": { "num_ctx": 32768 }
+        },
+        "iKhalid/ALLaM:7b": {
+          "name": "ALLaM 7B Arabic (local)",
+          "tool_call": false,
+          "reasoning": false,
+          "limit": { "context": 8192, "output": 2048 },
+          "options": { "num_ctx": 8192 }
+        }
+      }
+    }
+  },
+
+  // ------------------------------------------------------------
+  // AGENTS
+  // Build mode (default agent): FULL ACCESS — the "permission"
+  // block below allows everything by default; only deliberate
+  // checkpoints (ask) and irreversible operations (deny) remain.
+  // Plan mode: read-only — edit denied, bash asks first, so the
+  // READ -> PLAN -> APPROVE workflow keeps its guardrails.
+  // Subagents (builder, architect, ...) inherit the top-level
+  // permission set.
+  // ------------------------------------------------------------
+  "agent": {
+    "plan": {
+      "permission": {
+        "edit": "deny",
+        "bash": {
+          "*": "ask",
+          // --- Read-only diagnostics: allowed automatically ---
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "git show*": "allow",
+          "git branch*": "allow",
+          "git ls-files*": "allow",
+          "git remote -v*": "allow",
+          "Get-ChildItem*": "allow",
+          "Get-Content*": "allow",
+          "Get-Item*": "allow",
+          "Test-Path*": "allow",
+          "Get-Command*": "allow",
+          "Get-Process*": "allow",
+          "Get-Service*": "allow",
+          "Get-Volume*": "allow",
+          "Get-Disk*": "allow",
+          "Get-PSDrive*": "allow",
+          "where*": "allow",
+          "ls*": "allow",
+          "nvidia-smi*": "allow"
+        },
+        "external_directory": {
+          // --- Deny sensitive paths first ---
+          "~/.ssh/**": "deny",
+          "~/.aws/**": "deny",
+          "~/.gnupg/**": "deny",
+          "C:\\Users\\Kandil\\.ssh\\**": "deny",
+          "C:\\Users\\Kandil\\.aws\\**": "deny",
+          "C:\\Users\\Kandil\\.gnupg\\**": "deny",
+          // --- Default: ask ---
+          "*": "ask",
+          // --- Allow known paths ---
+          "D:\\AI\\**": "allow",
+          "/mnt/d/AI/**": "allow",
+          "C:\\AI-Workstation\\**": "allow",
+          "\\\\wsl$\\**": "allow",
+          "C:\\Users\\Kandil\\.config\\opencode\\**": "allow",
+          "/mnt/c/Users/Kandil/.config/opencode/**": "allow",
+          "~/projects/**": "allow",
+          "C:\\Users\\Kandil\\AppData\\Local\\Temp\\**": "allow",
+          "/mnt/c/Users/Kandil/AppData/Local/Temp/**": "allow"
+        }
+      }
+    }
+  },
+
+  // ------------------------------------------------------------
+  // SAFETY & PERMISSIONS
+  // Principle: READ -> PLAN -> APPROVE -> EXECUTE -> TEST -> REVIEW -> REPORT.
+  // Build mode has FULL ACCESS: the default rule is "allow", so
+  // nothing prompts unless it matches a guardrail below. Pattern
+  // rules: the LAST matching rule wins; broad rules come first,
+  // narrow rules come last.
+  //   ask  -> deliberate checkpoint: the agent stops, you decide.
+  //   deny -> irreversible: refused outright, no prompt.
+  // ------------------------------------------------------------
+  "permission": {
+    "edit": {
+      // Broad default first; secrets files ask (LAST matching rule wins).
+      "*": "allow",
+      "**/.env*": "ask"
+    },
+    "bash": {
+      "*": "allow",
+      // --- Explicit read-only diagnostics (survives wildcard changes) ---
+      "git status*": "allow",
+      "git diff*": "allow",
+      "git log*": "allow",
+      "git show*": "allow",
+      "git branch*": "allow",
+      "git ls-files*": "allow",
+      "git remote -v*": "allow",
+      "Get-ChildItem*": "allow",
+      "Get-Content*": "allow",
+      "Get-Item*": "allow",
+      "Test-Path*": "allow",
+      "Get-Command*": "allow",
+      "Get-Process*": "allow",
+      "Get-Service*": "allow",
+      "Get-Volume*": "allow",
+      "Get-Disk*": "allow",
+      "Get-PSDrive*": "allow",
+      "where*": "allow",
+      "ls*": "allow",
+      "nvidia-smi*": "allow",
+      "cat*": "allow",
+      "type*": "allow",
+      // --- Tests and lint: allowed automatically ---
+      "pytest*": "allow",
+      "python -m pytest*": "allow",
+      "python -m compileall*": "allow",
+      "uv run pytest*": "allow",
+      "uv run python -m pytest*": "allow",
+      "npm test*": "allow",
+      "npm run lint*": "allow",
+      "npm run typecheck*": "allow",
+      // --- Deliberate checkpoints: ask before acting ---
+      "git commit*": "ask",
+      "git push*": "ask",
+      "git clean*": "ask",
+      "git clean -fdx*": "deny",
+      "git clean -fXd*": "deny",
+      "git branch -d*": "ask",
+      "git branch -D*": "ask",
+      "git tag -d*": "ask",
+      "git remote remove*": "ask",
+      "git remote rm*": "ask",
+      "rm -r*": "ask",
+      "rm *": "ask",
+      "Remove-Item -Recurse*": "ask",
+      "Remove-Item*": "ask",
+      "del /S*": "deny",
+      "del*": "ask",
+      "rd /S*": "deny",
+      "rd*": "ask",
+      // --- Package managers: approval required ---
+      "sudo*": "ask",
+      "apt*": "ask",
+      "winget*": "ask",
+      "npm install*": "ask",
+      "npm uninstall*": "ask",
+      "uv add*": "ask",
+      "uv remove*": "ask",
+      "uv sync*": "ask",
+      "pip install*": "ask",
+      "python -m pip install*": "ask",
+      "python -m pip uninstall*": "ask",
+      // --- Docker: approval required ---
+      "docker run*": "ask",
+      "docker compose*": "ask",
+      "docker build*": "ask",
+      "docker exec*": "ask",
+      "docker rmi*": "ask",
+      "docker volume rm*": "ask",
+      "docker system prune -a --volumes*": "deny",
+      "docker system prune*": "ask",
+      // --- Registry, services, network: approval required ---
+      "reg*": "ask",
+      "Set-Service*": "ask",
+      "Restart-Service*": "ask",
+      "sc config*": "ask",
+      "netsh*": "ask",
+      "New-NetFirewallRule*": "ask",
+      "Set-ItemProperty*": "ask",
+      "New-ItemProperty*": "ask",
+      // --- System operations: approval required ---
+      "shutdown*": "ask",
+      "Restart-Computer*": "ask",
+      "Stop-Computer*": "ask",
+      "wsl --shutdown*": "ask",
+      "wsl --uninstall*": "deny",
+      // --- ACL/ownership: ask or deny ---
+      "icacls*": "ask",
+      "takeown*": "deny",
+      "cacls*": "ask",
+      // --- Irreversible: denied outright ---
+      "git push --force*": "deny",
+      "git reset --hard*": "deny",
+      "rm -rf*": "deny",
+      "Remove-Item -Recurse -Force*": "deny",
+      "diskpart*": "deny",
+      "format*": "deny",
+      "fdisk*": "deny",
+      "parted*": "deny",
+      "mkfs*": "deny",
+      "bcdedit*": "deny",
+      "bcdboot*": "deny",
+      "bootrec*": "deny",
+      "bootsect*": "deny",
+      "reg delete*": "deny",
+      "Remove-Partition*": "deny",
+      "Clear-Disk*": "deny",
+      "Initialize-Disk*": "deny",
+      "New-Partition*": "deny"
+    },
+    // ----------------------------------------------------------
+    // External directories: known asset/report/temp locations are
+    // readable without prompts; everything else asks first.
+    // Patterns cover both Windows and WSL (/mnt/...) paths.
+    // ----------------------------------------------------------
+    "external_directory": {
+      // --- Deny sensitive paths first (defense-in-depth) ---
+      "~/.ssh/**": "deny",
+      "~/.aws/**": "deny",
+      "~/.gnupg/**": "deny",
+      "C:\\Users\\Kandil\\.ssh\\**": "deny",
+      "C:\\Users\\Kandil\\.aws\\**": "deny",
+      "C:\\Users\\Kandil\\.gnupg\\**": "deny",
+      // --- Default: ask ---
+      "*": "ask",
+      // --- Allow known paths ---
+      "D:\\AI\\**": "allow",
+      "/mnt/d/AI/**": "allow",
+      "C:\\AI-Workstation\\**": "allow",
+      "\\\\wsl$\\**": "allow",
+      "C:\\Users\\Kandil\\.config\\opencode\\**": "allow",
+      "/mnt/c/Users/Kandil/.config/opencode/**": "allow",
+      "~/projects/**": "allow",
+      "C:\\Users\\Kandil\\AppData\\Local\\Temp\\**": "allow",
+      "/mnt/c/Users/Kandil/AppData/Local/Temp/**": "allow"
+    }
+  }
+}

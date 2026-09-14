@@ -1,0 +1,28 @@
+# Node
+node_modules/
+package-lock.json
+bun.lock
+
+# Old backups (contain outdated configs)
+backup/
+
+# Session logs (contain operational data, may include leaked secrets from other projects)
+memory/sessions/
+
+# Config backups (dated copies of opencode.jsonc)
+*.bak
+*.bak-*
+*.bak2
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+
+# Temp
+*.tmp
+*.swp

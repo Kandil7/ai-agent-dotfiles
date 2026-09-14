@@ -1,0 +1,11 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "snapshot": true,
+  "permission": {
+    "edit": "allow",
+    "external_directory": {
+      "*": "ask",
+      "D:\\AI\\**": "allow"
+    }
+  }
+}
